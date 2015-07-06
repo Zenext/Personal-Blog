@@ -3,7 +3,8 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from models import User, Post
 from postForm import *
 
-import datetime
+import time
+from datetime import date
 
 app = Flask(__name__)
 
@@ -16,7 +17,7 @@ def main():
     if 'username' in session:
         title = 'Admin home'
         addpost = True
-    return render_template('main.html', addpost=addpost)
+    return render_template('main.html', addpost=addpost, posts=Post.select())
 
 @app.route('/about')
 def about():
@@ -44,7 +45,8 @@ def addpost():
     form = addPostForm(request.form)
     if request.method == 'POST' and form.validate():
         post = Post.create(header=form.name.data,
-                    text=form.text.data)
+                    text=form.text.data,
+                    created_date=date.today().strftime('%B %d, %Y'))
     
     if 'username' in session:
         return render_template('addpost.html', form=form)

@@ -18,6 +18,8 @@ class User(BaseModel):
 class Post(BaseModel):
     header = CharField()
     text = TextField()
+    created_date = DateField()
     
     class Meta:
         order_by = ('header',)
+
