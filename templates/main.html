@@ -8,16 +8,30 @@
 {% endblock %}
 
 {% block content %}
-<div class='blog-posts'>
     {% block posts %}
         {% for post in posts %}
-            <article id='post'>
-                <header id="postHeader"><h1 id='content-header'>{{ post.header }}</h1></header>
-                <p id='post-date'>{{ post.created_date }}</p>
-                <p>{{ post.text[:350] + '...' }} <a href=''>Read more</a></p>
-                <hr>
-            </article>
+            <article class="post post-4">
+                <header class="entry-header">
+                    <h1 class="entry-title">
+                        <a href="single.html">{{ post.header }}</a>
+                    </h1>
+                    <div class="entry-meta">
+                        <span class="post-category"><a href="#">Web Design</a></span>
+
+                        <span class="post-date"><a href="#"><time class="entry-date" datetime="2012-11-09T23:15:57+00:00">{{ post.created_date }}</time></a></span>
+
+                        <span class="post-author"><a href="#">Albert Einstein</a></span>
+
+                        <span class="comments-link"><a href="#">4 Comments</a></span>
+                    </div>
+                </header>
+                <div class="entry-content clearfix">
+                    <p>{{ post.text[:350] + '...' }} </p>
+                    <div class="read-more cl-effect-14">
+                        <a href="single.html" class="more-link">Continue reading <span class="meta-nav">→</span></a>
+                    </div>
+                </div>
+                </article>
         {% endfor %}
     {% endblock %}
-</div>
 {% endblock %}

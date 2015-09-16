@@ -11,10 +11,17 @@
 
     <title>{{ title }}</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/css/style.css" rel="stylesheet">
-    <!-- Custom CSS -->
+        <!-- css -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/ionicons.min.css">
+    <link rel="stylesheet" href="static/css/pace.css">
+    <link rel="stylesheet" href="static/css/custom.css">
+
+    <!-- js -->
+    <script src="/static/js/jquery-2.1.3.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/pace.min.js"></script>
+    <script src="/static/js/modernizr.custom.js"></script>
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -27,52 +34,127 @@
 </head>
 
 <body>
-    
-    <!-- Header  -->
-    <div class='container'>
-        <div class='row'>
-            <div class='col-lg-5 col-lg-offset-3' id='head'>
+        <div class="container"> 
+            <header id="site-header">
+                <div class="row">
+                    <div class="col-md-4 col-sm-5 col-xs-8">
+                        <div class="logo">
+                            <h1><a href="index.html"><b>Black</b> &amp; White</a></h1>
+                        </div>
+                    </div><!-- col-md-4 -->
+                    <div class="col-md-8 col-sm-7 col-xs-4">
+                        <nav class="main-nav" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" id="trigger-overlay" class="navbar-toggle">
+                                    <span class="ion-navicon"></span>
+                                </button>
+                            </div>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="cl-effect-11"><a href="index.html" data-hover="Home">Home</a></li>
+                                    <li class="cl-effect-11"><a href="full-width.html" data-hover="Blog">Blog</a></li>
+                                    <li class="cl-effect-11"><a href="about.html" data-hover="About">About</a></li>
+                                    <li class="cl-effect-11"><a href="contact.html" data-hover="Contact">Contact</a></li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </nav>
+                        <div id="header-search-box">
+                            <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                            <div id="search-form" class="search-form">
+                                <form role="search" method="get" id="searchform" action="#">
+                                    <input type="search" placeholder="Search" required>
+                                    <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                                </form>             
+                            </div>
+                        </div>
+                    </div><!-- col-md-8 -->
+                </div>
+            </header>
+        </div>
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
                 {% block addPost %}
                 {% endblock %}
+                    <main class="col-md-8">
+                        {% block content %}
+                        {% endblock %}
+                    </main>
+                    <aside class="col-md-4">
+                        <div class="widget widget-recent-posts">        
+                            <h3 class="widget-title">Recent Posts</h3>      
+                            <ul>
+                                <li>
+                                    <a href="#">Adaptive Vs. Responsive Layouts And Optimal Text Readability</a>
+                                </li>
+                                <li>
+                                    <a href="#">Web Design is 95% Typography</a>
+                                </li>
+                                <li>
+                                    <a href="#">Paper by FiftyThree</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="widget widget-archives">        
+                            <h3 class="widget-title">Archives</h3>      
+                            <ul>
+                                <li>
+                                    <a href="#">November 2014</a>
+                                </li>
+                                <li>
+                                    <a href="#">September 2014</a>
+                                </li>
+                                <li>
+                                    <a href="#">January 2013</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="widget widget-category">        
+                            <h3 class="widget-title">Category</h3>      
+                            <ul>
+                                <li>
+                                    <a href="#">Web Design</a>
+                                </li>
+                                <li>
+                                    <a href="#">Web Development</a>
+                                </li>
+                                <li>
+                                    <a href="#">SEO</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Top navigation bar  -->
-    <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse navbar-menubuilder">
-            <ul class="nav navbar-nav">
-                <li><a href="/">Home</a>
-                </li>
-                <li><a href="/products">Products</a>
-                </li>
-                <li><a href="/about-us">About Us</a>
-                </li>
-                <li><a href="/contact">Contact Us</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-    
-    <!--  Content  -->
-    <div class='container'>
-        <div class='row'>
-            <div class='col-lg-8' id='content'>
-                {% block content %}
-                {% endblock %}
-            <div class='col-lg-4' id='content'>
+        <footer id="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="copyright">&copy; 2014 ThemeWagon.com</p>
+                    </div>
+                </div>
             </div>
+        </footer>
+
+        <!-- Mobile Menu -->
+        <div class="overlay overlay-hugeinc">
+            <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="full-width.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
-    
-    <!-- jQuery -->
-    <script src="static/js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="static/js/bootstrap.min.js"></script>
+        <script src="js/script.js"></script>
 
-</body>
+    </body>
 
 </html>
