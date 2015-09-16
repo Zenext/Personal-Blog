@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+<!--Add post button-->
+{% block addPost %}
+    {% if addpost %}
+    <a href='/addpost'>Add post</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class='blog-posts'>
+    {% block posts %}
+        {% for post in posts %}
+            <article id='post'>
+                <header id="postHeader"><h1 id='content-header'>{{ post.header }}</h1></header>
+                <p id='post-date'>{{ post.created_date }}</p>
+                <p>{{ post.text[:350] + '...' }} <a href=''>Read more</a></p>
+                <hr>
+            </article>
+        {% endfor %}
+    {% endblock %}
+</div>
+{% endblock %}
