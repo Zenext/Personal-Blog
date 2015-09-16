@@ -38,6 +38,11 @@ def login():
             return redirect(url_for('main'))
     return render_template('login.html', error=error)
 
+# route for viewing posts
+@app.route('/post/<postname>')
+def post(postname):
+    post = Post.get(Post.header == postname)
+    return render_template('post.html', header=post.header)
 
 # route for adding new posts, only if logged as admin
 @app.route('/addpost', methods=['GET', 'POST'])
