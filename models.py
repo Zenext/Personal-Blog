@@ -13,12 +13,12 @@ class User(BaseModel):
     class Meta:
         order_by = ('name',)
         
-        
-
 class Post(BaseModel):
     header = CharField()
     text = TextField()
-    created_date = DateField()
+    date = DateField()
+    author = CharField()
+    category = CharField()
     
     class Meta:
         order_by = ('header',)
