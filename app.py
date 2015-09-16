@@ -42,7 +42,7 @@ def login():
 @app.route('/post/<postname>')
 def post(postname):
     post = Post.get(Post.header == postname)
-    return render_template('post.html', header=post.header, text=post.text, date=post.created_date)
+    return render_template('post.html', header=post.header, text=post.text, date=post.date)
 
 # route for adding new posts, only if logged as admin
 @app.route('/addpost', methods=['GET', 'POST'])
@@ -51,7 +51,9 @@ def addpost():
     if request.method == 'POST' and form.validate():
         post = Post.create(header=form.name.data,
                     text=form.text.data,
-                    created_date=date.today().strftime('%B %d, %Y'))
+                    date=date.today().strftime('%B %d, %Y'),
+                    author=session['username'],
+                    category='stuff')
     
     if 'username' in session:
         return render_template('addpost.html', form=form)
