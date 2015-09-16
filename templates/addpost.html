@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <form class="form-horizontal" method="POST" action="/addpost">
+    <fieldset>
+
+    <!-- Form Name -->
+    <legend>Add new post</legend>
+
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="Header">Header</label>
+      <div class="controls">
+        {{ form.name.label }}: {{ form.name(class='input-xlarge') }}
+
+      </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="control-group">
+      <label class="control-label" for="textarea">Text Area</label>
+      <div class="controls">                     
+          {{ form.text.label }}: {{ form.text(id='textarea') }}
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="control-group">
+      <label class="control-label" for="add-Post"></label>
+      <div class="controls">
+        <button id="add-Post" name="add-Post" class="btn btn-primary" method="post" value="Add post">Post</button>
+      </div>
+    </div>
+
+    </fieldset>
+    </form>
+{% endblock %}
