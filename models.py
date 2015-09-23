@@ -22,4 +22,3 @@ class Post(BaseModel):
     
     class Meta:
         order_by = ('header',)
-

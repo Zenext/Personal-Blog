@@ -1,4 +1,5 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from functools import wraps
+from flask import Flask, render_template, redirect, url_for, request, session, g
 
 from models import User, Post
 from postForm import *
@@ -11,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = '[;fsdfeeff,?RTewr34355511@@234##@!Jnsruuqqqqqq'
 
 @app.route('/')
-def main():
+def main(*args, **kwargs):
     title = 'Home'
     addpost = False
     if 'username' in session:
@@ -24,7 +25,6 @@ def about():
     return render_template('about.html',
                            title='About me')
 
-
 # route for handling the login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -35,6 +35,7 @@ def login():
             error = 'Invalid Credentials. Please try again.'
         else:
             session['username'] = request.form['username']
+            g.user = 'admin'
             return redirect(url_for('main'))
     return render_template('login.html', error=error)
 
@@ -42,7 +43,9 @@ def login():
 @app.route('/post/<postname>')
 def post(postname):
     post = Post.get(Post.header == postname)
-    return render_template('post.html', header=post.header, text=post.text, date=post.date)
+    return render_template('post.html', header=post.header, text=post.text,
+        date=post.date, posts=Post.select())
+
 
 # route for adding new posts, only if logged as admin
 @app.route('/addpost', methods=['GET', 'POST'])
@@ -53,12 +56,9 @@ def addpost():
                     text=form.text.data,
                     date=date.today().strftime('%B %d, %Y'),
                     author=session['username'],
-                    category='stuff')
+                    category='stuff',
+                    posts=Post.select())
     
-    if 'username' in session:
-        return render_template('addpost.html', form=form)
-    else:
-        return redirect(url_for('login'))
-        
-        
+    return render_template('addpost.html', form=form)
+
 app.run(debug=True)

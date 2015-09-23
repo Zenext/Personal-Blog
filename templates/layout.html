@@ -85,15 +85,11 @@
                         <div class="widget widget-recent-posts">        
                             <h3 class="widget-title">Recent Posts</h3>      
                             <ul>
+                                {% for post in posts %}
                                 <li>
-                                    <a href="#">Adaptive Vs. Responsive Layouts And Optimal Text Readability</a>
+                                    <a href="/post/{{ post.header }}">{{ post.header }}</a>
                                 </li>
-                                <li>
-                                    <a href="#">Web Design is 95% Typography</a>
-                                </li>
-                                <li>
-                                    <a href="#">Paper by FiftyThree</a>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <div class="widget widget-archives">        
