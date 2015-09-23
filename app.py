@@ -44,7 +44,7 @@ def login():
 def post(postname):
     post = Post.get(Post.header == postname)
     return render_template('post.html', header=post.header, text=post.text,
-        date=post.date, posts=Post.select())
+        date=post.date)
 
 
 # route for adding new posts, only if logged as admin
