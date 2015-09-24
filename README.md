@@ -1,3 +1,3 @@
-Website url, hosted on pythonanywhere.com
+Hosted on pythonanywhere.com
 
 http://zenext.pythonanywhere.com/
