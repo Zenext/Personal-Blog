@@ -7,9 +7,23 @@
 	        <div class="entry-meta">
 			<span class="post-date"><a href="#"><time class="entry-date" datetime="2012-11-09T23:15:57+00:00">{{ date }}</time></a></span>
 
-			<span class="comments-link"><a href="#">4 Comments</a></span>
+			<span class="comments-link"><a href="/post/{{ header }}#disqus_thread">4 Comments</a></span>
 		</div>
         <p>{{ text }}</p>
       </div>
-    </div>
+      <br>
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES * * */
+            var disqus_shortname = 'zenext';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </div>
 {% endblock %}

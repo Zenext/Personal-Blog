@@ -16,13 +16,11 @@
                         <a href="/post/{{ post.header }}">{{ post.header }}</a>
                     </h1>
                     <div class="entry-meta">
+                        <span class="post-date"><a href="#"><time class="entry-date" datetime="2012-11-09T23:15:57+00:00">{{ post.date }}</time></a></span>
+
                         <span class="post-category"><a href="#">Web Design</a></span>
 
-                        <span class="post-date"><a href="#"><time class="entry-date" datetime="2012-11-09T23:15:57+00:00">{{ post.created_date }}</time></a></span>
-
-                        <span class="post-author"><a href="#">Albert Einstein</a></span>
-
-                        <span class="comments-link"><a href="#">4 Comments</a></span>
+                        <span class="comments-link"><a href="/post/{{ post.header }}#disqus_thread">4 Comments</a></span>
                     </div>
                 </header>
                 <div class="entry-content clearfix">

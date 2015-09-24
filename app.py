@@ -8,9 +8,9 @@ import time
 from datetime import date
 
 app = Flask(__name__)
-
+    
 app.secret_key = '[;fsdfeeff,?RTewr34355511@@234##@!Jnsruuqqqqqq'
-
+    
 @app.route('/')
 def main(*args, **kwargs):
     title = 'Home'
@@ -60,5 +60,9 @@ def addpost():
                     posts=Post.select())
     
     return render_template('addpost.html', form=form)
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', posts=Post.select())
 
 app.run(debug=True)
