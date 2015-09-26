@@ -11,14 +11,29 @@ app = Flask(__name__)
     
 app.secret_key = '[;fsdfeeff,?RTewr34355511@@234##@!Jnsruuqqqqqq'
     
+def get_categories():
+    categories = []
+    category = Post.select()
+    for cat in category:
+        if cat.category not in categories:
+            categories.append(cat.category)
+
+    print categories
+    return categories
+
+def get_posts():
+    return Post.select().order_by(Post.date.desc())
+
 @app.route('/')
 def main(*args, **kwargs):
     title = 'Home'
     addpost = False
+    print type(Post.select())
     if 'username' in session:
         title = 'Admin home'
         addpost = True
-    return render_template('main.html', addpost=addpost, posts=Post.select())
+    return render_template('main.html', addpost=addpost, posts=get_posts(),
+            categories=get_categories())
 
 @app.route('/about')
 def about():
@@ -44,7 +59,9 @@ def login():
 def post(postname):
     post = Post.get(Post.header == postname)
     return render_template('post.html', header=post.header, text=post.text,
-        date=post.date, posts=Post.select())
+            date=post.date,
+            posts=get_posts(),
+            categories=get_categories())
 
 
 # route for adding new posts, only if logged as admin
@@ -56,13 +73,24 @@ def addpost():
                     text=form.text.data,
                     date=date.today().strftime('%B %d, %Y'),
                     author=session['username'],
-                    category='stuff',
-                    posts=Post.select())
+                    category=form.category.data,
+                    posts=get_posts())
     
     return render_template('addpost.html', form=form)
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html', posts=Post.select())
+    return render_template('contact.html', posts=get_posts(),
+            categories=get_categories())
+
+@app.route('/archives')
+def archives():
+    return render_template('archives.html', posts=get_posts(),
+            categories=get_categories())
+
+@app.route('/category/<category_name>')
+def category(category_name):
+    return render_template('main.html', posts=Post.select().where(Post.category == category_name),
+            categories=get_categories())
 
 app.run(debug=True)

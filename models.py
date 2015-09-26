@@ -21,4 +21,4 @@ class Post(BaseModel):
     category = CharField()
     
     class Meta:
-        order_by = ('header',)
+        order_by = ('date',)

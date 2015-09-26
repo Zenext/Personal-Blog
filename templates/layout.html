@@ -106,18 +106,14 @@
                             </ul>
                         </div>
 
-                        <div class="widget widget-category">        
+                        <div class="widget widget-category">       
                             <h3 class="widget-title">Category</h3>      
                             <ul>
+                            {% for category in categories %} 
                                 <li>
-                                    <a href="#">Web Design</a>
+                                    <a href="/category/{{ category }}">{{ category }}</a>
                                 </li>
-                                <li>
-                                    <a href="#">Web Development</a>
-                                </li>
-                                <li>
-                                    <a href="#">SEO</a>
-                                </li>
+                            {% endfor %}
                             </ul>
                         </div>
                     </aside>
@@ -146,7 +142,6 @@
             </nav>
         </div>
 
-        <script src="js/script.js"></script>
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'zenext'; // required: replace example with your forum shortname
