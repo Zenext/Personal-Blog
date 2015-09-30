@@ -33,6 +33,7 @@ def main(*args, **kwargs):
         title = 'Admin home'
         addpost = True
     return render_template('main.html', addpost=addpost, posts=get_posts(),
+            recent_posts=get_posts(),
             categories=get_categories())
 
 @app.route('/about')
@@ -61,7 +62,8 @@ def post(postname):
     return render_template('post.html', header=post.header, text=post.text,
             date=post.date,
             posts=get_posts(),
-            categories=get_categories())
+            categories=get_categories(),
+            recent_posts=get_posts())
 
 
 # route for adding new posts, only if logged as admin
@@ -76,21 +78,27 @@ def addpost():
                     category=form.category.data,
                     posts=get_posts())
     
-    return render_template('addpost.html', form=form)
+    return render_template('addpost.html', form=form, 
+            posts=get_posts(),
+            recent_posts=get_posts())
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html', posts=get_posts(),
+            recent_posts=get_posts(),
             categories=get_categories())
 
 @app.route('/archives')
 def archives():
     return render_template('archives.html', posts=get_posts(),
+            recent_posts=get_posts(),
             categories=get_categories())
 
 @app.route('/category/<category_name>')
 def category(category_name):
-    return render_template('main.html', posts=Post.select().where(Post.category == category_name),
+    return render_template('main.html',
+            posts=Post.select().where(Post.category == category_name),
+            recent_posts=get_posts(),
             categories=get_categories())
 
 app.run(debug=True)
