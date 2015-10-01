@@ -85,24 +85,22 @@
                             <h3 class="widget-title">Recent Posts</h3>      
                             <ul>
                                 {% for post in range(0, 3) %}
-                                <li>
+                                    {% if recent_posts[post] %}
+                                    <li>
                                     <a href="/post/{{ recent_posts[post].header }}">{{ recent_posts[post].header }}</a>
-                                </li>
+                                    {% endif %}
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
                         <div class="widget widget-archives">        
-                            <h3 class="widget-title">Archives</h3>      
+                            <a href="/archives"><h3 class="widget-title">Archives</h3></a>      
                             <ul>
-                                <li>
-                                    <a href="#">November 2014</a>
-                                </li>
-                                <li>
-                                    <a href="#">September 2014</a>
-                                </li>
-                                <li>
-                                    <a href="#">January 2013</a>
-                                </li>
+                                {% for month in range(0, 3) %}
+                                    {% if archives[month] %}
+                                    <a href="/archives/{{ archives[month] }}"><li>{{ archives[month].strftime('%B %Y') }}</li></a>
+                                    {% endif %}
+                                {% endfor %}
                             </ul>
                         </div>
 

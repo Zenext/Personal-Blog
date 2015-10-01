@@ -24,6 +24,10 @@ def get_categories():
 def get_posts():
     return Post.select().order_by(Post.date.desc())
 
+def get_archive():
+    months = [x.date for x in Post.select()]
+    return list(set(months))
+
 @app.route('/')
 def main(*args, **kwargs):
     title = 'Home'
@@ -34,7 +38,8 @@ def main(*args, **kwargs):
         addpost = True
     return render_template('main.html', addpost=addpost, posts=get_posts(),
             recent_posts=get_posts(),
-            categories=get_categories())
+            categories=get_categories(),
+            archives=get_archive())
 
 @app.route('/about')
 def about():
@@ -59,11 +64,11 @@ def login():
 @app.route('/post/<postname>')
 def post(postname):
     post = Post.get(Post.header == postname)
-    return render_template('post.html', header=post.header, text=post.text,
-            date=post.date,
+    return render_template('post.html', post=post,
             posts=get_posts(),
             categories=get_categories(),
-            recent_posts=get_posts())
+            recent_posts=get_posts(),
+            archives=get_archive())
 
 
 # route for adding new posts, only if logged as admin
@@ -73,32 +78,45 @@ def addpost():
     if request.method == 'POST' and form.validate():
         post = Post.create(header=form.name.data,
                     text=form.text.data,
-                    date=date.today().strftime('%B %d, %Y'),
-                    author=session['username'],
-                    category=form.category.data,
-                    posts=get_posts())
+                    date=date.today(),
+                    category=form.category.data)
     
     return render_template('addpost.html', form=form, 
             posts=get_posts(),
-            recent_posts=get_posts())
+            recent_posts=get_posts(),
+            archives=get_archive())
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html', posts=get_posts(),
             recent_posts=get_posts(),
-            categories=get_categories())
+            categories=get_categories(),
+            archives=get_archive())
 
 @app.route('/archives')
 def archives():
+    months = [x.date for x in Post.select()]
+    unique_months = list(set(months))
     return render_template('archives.html', posts=get_posts(),
             recent_posts=get_posts(),
-            categories=get_categories())
+            categories=get_categories(),
+            months=unique_months,
+            archives=get_archive())
+
+@app.route('/archives/<month>')
+def posts_by_month(month):
+    return render_template('main.html',
+            posts=Post.select().where(Post.date.year == 2015),
+            recent_posts=get_posts(),
+            categories=get_categories(),
+            archives=get_archive())
 
 @app.route('/category/<category_name>')
 def category(category_name):
     return render_template('main.html',
-            posts=Post.select().where(Post.category == category_name),
+            posts=Post.select().where(Post.category == category_name).order_by(Post.date.desc()),
             recent_posts=get_posts(),
-            categories=get_categories())
+            categories=get_categories(),
+            archives=get_archive())
 
 app.run(debug=True)

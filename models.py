@@ -1,4 +1,6 @@
 from peewee import *
+import time
+from datetime import date
 
 db = SqliteDatabase('blog.db')
 
@@ -17,7 +19,6 @@ class Post(BaseModel):
     header = CharField()
     text = TextField()
     date = DateField()
-    author = CharField()
     category = CharField()
     
     class Meta:
