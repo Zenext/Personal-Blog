@@ -1,10 +1,8 @@
-from functools import wraps
 from flask import Flask, render_template, redirect, url_for, request, session, g
 
 from models import User, Post
 from postForm import *
 
-import time
 from datetime import date
 
 app = Flask(__name__)
@@ -18,21 +16,20 @@ def get_categories():
         if cat.category not in categories:
             categories.append(cat.category)
 
-    print categories
     return categories
 
 def get_posts():
     return Post.select().order_by(Post.date.desc())
 
 def get_archive():
-    months = [x.date for x in Post.select()]
+    months = [x.date.strftime('%B %Y') for x in Post.select()]
     return list(set(months))
 
 @app.route('/')
+@app.route('/page/<page_number>')
 def main(*args, **kwargs):
     title = 'Home'
     addpost = False
-    print type(Post.select())
     if 'username' in session:
         title = 'Admin home'
         addpost = True
@@ -47,6 +44,7 @@ def about():
                            title='About me')
 
 # route for handling the login
+# TODO: use decorator
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
